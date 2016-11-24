@@ -1,330 +1,139 @@
-Redisson - distributed and scalable Java data structures on top of Redis server. Advanced Java Redis client
+Redis based In-Memory Data Grid for Java. Redisson.
 ====
 
-[![Maven Central](https://img.shields.io/maven-central/v/org.redisson/redisson.svg?style=flat-square)](https://maven-badges.herokuapp.com/maven-central/org.redisson/redisson/)
+Based on high-performance async and lock-free Java Redis client and [Netty](http://netty.io) framework.  
+Redis 2.8+ compatible.
 
-Use familiar Java data structures with power of [Redis](http://redis.io).
+| Stable Release Version | JDK Version compatibility | Release Date |
+| ------------- | ------------- | ------------|
+| 3.1.0  | 1.8+ | 07.11.2016 |
+| 2.6.0 | 1.6+ | 07.11.2016 |
 
-Based on high-performance async and lock-free Java Redis client and [Netty 4](http://netty.io) framework.  
-Redis 2.8+ and JDK 1.6+ compatible  
-
-
-Read [wiki](https://github.com/mrniko/redisson/wiki) for more Redisson usage details
-
+Please read [documentation](https://github.com/redisson/redisson/wiki) for more details.  
+Redisson [releases history](https://github.com/redisson/redisson/blob/master/CHANGELOG.md)  
+Checkout more [code examples](https://github.com/redisson/redisson-examples)  
 
 Licensed under the Apache License 2.0.
 
-Welcome to support chat - [![Join the chat at https://gitter.im/mrniko/redisson](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mrniko/redisson?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+Welcome to support chat [![Join the chat at https://gitter.im/mrniko/redisson](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mrniko/redisson?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+####Try [Redisson PRO](http://redisson.pro) version.  
+####Redisson team offers commercial support. Please contact sales@redisson.pro for details.
 
 Features
 ================================
-* [AWS ElastiCache](https://aws.amazon.com/elasticache/) servers mode:
-    1. automatic new master server discovery
-    2. automatic new slave servers discovery
-    3. read data using slave servers, write data using master server
-* Cluster servers mode:
-    1. automatic master and slave discovery
+* [AWS ElastiCache](http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/Replication.html) mode:
+    1. automatic master server change discovery
+* [AWS ElastiCache Cluster](http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/Clusters.html) mode:
+    1. automatic master and slave servers discovery
     2. automatic new master server discovery
     3. automatic new slave servers discovery
-    4. automatic slots change discovery
-    5. read data using slave servers, write data using master server
+    4. automatic slave servers offline/online discovery
+    5. automatic slots change discovery
+* Cluster servers mode:
+    1. automatic master and slave servers discovery
+    2. automatic new master server discovery
+    3. automatic new slave servers discovery
+    4. automatic slave servers offline/online discovery
+    5. automatic slots change discovery
 * Sentinel servers mode: 
     1. automatic master and slave servers discovery
     2. automatic new master server discovery
     3. automatic new slave servers discovery
     4. automatic slave servers offline/online discovery  
     5. automatic sentinel servers discovery  
-    6. read data using slave servers, write data using master server
-* Master with Slave servers mode: read data using slave servers, write data using master server
-* Single server mode: read and write data using single server
-* Lua scripting  
-* Distributed implementation of `java.util.BitSet`  
-* Distributed implementation of `java.util.List`  
-* Distributed implementation of `java.util.Set`  
-* Distributed implementation of `java.util.SortedSet`  
-* Distributed implementation of `java.util.Queue`  
-* Distributed implementation of `java.util.concurrent.BlockingQueue`  
-* Distributed implementation of `java.util.Deque`  
-* Distributed implementation of `java.util.Map`  
-* Distributed implementation of `java.util.concurrent.ConcurrentMap`  
-* Distributed implementation of reentrant `java.util.concurrent.locks.Lock` with TTL support  
-* Distributed alternative to the `java.util.concurrent.atomic.AtomicLong`  
-* Distributed alternative to the `java.util.concurrent.CountDownLatch`  
-* Distributed publish/subscribe messaging via `org.redisson.core.RTopic`  
-* Distributed HyperLogLog via `org.redisson.core.RHyperLogLog`  
+* Master with Slave servers mode  
+* Single server mode  
 * Asynchronous interface for each object  
+* Asynchronous connection pool  
 * Thread-safe implementation  
-* All commands are executed in an atomic way  
-* Supports [Redis pipelining](http://redis.io/topics/pipelining) (command batches)  
+* Lua scripting  
+* [Distributed objects](https://github.com/redisson/redisson/wiki/6.-Distributed-objects)
+* [Distributed collections](https://github.com/redisson/redisson/wiki/7.-Distributed-collections)
+* [Distributed locks and synchronizers](https://github.com/redisson/redisson/wiki/8.-Distributed-locks-and-synchronizers)
+* [Distributed services](https://github.com/redisson/redisson/wiki/9.-distributed-services)
+* [Spring cache](https://github.com/redisson/redisson/wiki/14.-Integration%20with%20frameworks/#141-spring-cache) integration  
+* [Hibernate](https://github.com/redisson/redisson/wiki/14.-Integration%20with%20frameworks/#142-hibernate) integration  
+* [Tomcat Session Manager](https://github.com/redisson/redisson/wiki/14.-Integration%20with%20frameworks#144-tomcat-redis-session-manager)
+* [JCache API (JSR-107)](https://github.com/redisson/redisson/wiki/14.-Integration%20with%20frameworks/#143-jcache-api-jsr-107-implementation) implementation  
+* [Reactive Streams](https://github.com/redisson/redisson/wiki/3.-operations-execution#32-reactive-way)  
+* [Redis pipelining](https://github.com/redisson/redisson/wiki/10.-additional-features#102-execution-batches-of-commands) (command batches)
 * Supports Android platform  
 * Supports auto-reconnect  
 * Supports failed to send command auto-retry  
 * Supports OSGi  
-* Supports many popular codecs ([Jackson JSON](https://github.com/FasterXML/jackson), [CBOR](http://cbor.io/), [MsgPack](http://msgpack.org/), [Kryo](https://github.com/EsotericSoftware/kryo), [FST](https://github.com/RuedigerMoeller/fast-serialization), [LZ4](https://github.com/jpountz/lz4-java), [Snappy](https://github.com/xerial/snappy-java) and JDK Serialization)
-* With over 250 unit tests  
+* Supports many popular codecs ([Jackson JSON](https://github.com/FasterXML/jackson), [Avro](http://avro.apache.org/), [Smile](http://wiki.fasterxml.com/SmileFormatSpec), [CBOR](http://cbor.io/), [MsgPack](http://msgpack.org/), [Kryo](https://github.com/EsotericSoftware/kryo), [FST](https://github.com/RuedigerMoeller/fast-serialization), [LZ4](https://github.com/jpountz/lz4-java), [Snappy](https://github.com/xerial/snappy-java) and JDK Serialization)
+* With over 1000 unit tests  
 
 Projects using Redisson
 ================================
-Setronica: [setronica.com](http://setronica.com/)  
-Monits: [monits.com](http://monits.com/)  
-Brookhaven National Laboratory: [bnl.gov](http://bnl.gov/)  
-Netflix Dyno client: [dyno] (https://github.com/Netflix/dyno)  
-武林Q传:[nbrpg](http://www.nbrpg.com/)  
-Ocous: [ocous](http://www.ocous.com/)  
+[Infor](http://www.infor.com/), [New Relic Synthetics](https://newrelic.com/synthetics), [Singtel](http://singtel.com), [Setronica](http://setronica.com/), [Monits](http://monits.com/), [Brookhaven National Laboratory](http://bnl.gov/), [Netflix Dyno client] (https://github.com/Netflix/dyno), [武林Q传](http://www.nbrpg.com/), [Ocous](http://www.ocous.com/), [Invaluable](http://www.invaluable.com/), [Clover](https://www.clover.com/) , [Apache Karaf Decanter](https://karaf.apache.org/projects.html#decanter), [Atmosphere Framework](http://async-io.org/), [BrandsEye](http://brandseye.com), [Datorama](http://datorama.com/), [BrightCloud](http://brightcloud.com/)
 
-Recent Releases
+Articles
 ================================
-####Please Note: trunk is current development branch.
 
-####30-Nov-2015 - version 2.1.6 released  
-Fixed - connection pool regression bug  
-Fixed - connection init during `Node.ping` and `ClusterNode.info` invocation  
+[Java data structures powered by Redis. Introduction to Redisson (pdf)](http://redisson.org/Redisson.pdf)  
+[A Look at the Java Distributed In-Memory Data Model (Powered by Redis)](https://dzone.com/articles/java-distributed-in-memory-data-model-powered-by-r)  
+[Distributed tasks Execution and Scheduling in Java, powered by Redis](https://dzone.com/articles/distributed-tasks-execution-and-scheduling-in-java)  
+[Introducing Redisson Live Objects (Object Hash Mapping)](https://dzone.com/articles/introducing-redisson-live-object-object-hash-mappi)  
+[Java Remote Method Invocation with Redisson](https://dzone.com/articles/java-remote-method-invocation-with-redisson)  
+[Java Multimaps With Redis](https://dzone.com/articles/multimaps-with-redis)  
+[Distributed lock with Redis](https://evuvatech.com/2016/02/05/distributed-lock-with-redis/)
 
+Quick start
+===============================
 
-####24-Nov-2015 - version 2.1.5 released  
-Feature - new methods with `limit` option support were added to `RLexSortedSet`: `lexRange`, `lexRangeHead`, `lexRangeHeadAsync`, `lexRangeTail`, `lexRangeTailAsync`, `lexRangeAsync` (thanks to jackygurui)  
-Feature - new methods with `limit` option support were added to `RScoredSortedSet`: `valueRange`, `valueRangeAsync`, `entryRange`, `entryRangeAsync`, `valueRange`, `valueRangeAsync` (thanks to jackygurui)  
-Feature - `LOADING` Redis server response handling  
-Feature - `RKeys.getSlot` method added  
-Feature - new config options `reconnectionTimeout`, `failedAttempts`, `connectTimeout`, `slaveSubscriptionConnectionMinimumIdleSize`, `masterConnectionMinimumIdleSize`, `'slaveConnectionMinimumIdleSize`, `idleConnectionTimeout`  
-Feature - `RBitSet` object added  
-Feature - `RBlockingQueue.pollFromAny` and `RBlockingQueue.pollFromAnyAsync` methods added  
-Improvements - `LoadBalancer` interface refactored  
-Fixed - RedisTimeoutException message  
-Fixed - command execution timeout handling  
-Fixed - `RList.addAllAsync`  
-Fixed - `RSet.iterator`  
-Fixed - `RBatch.execute` and `RBatch.executeAsync` errors handling  
-
-
-####11-Nov-2015 - version 2.1.4 released  
-Cluster support improvements. New codecs. Stability improvements.
-
-Feature - [LZ4](https://github.com/jpountz/lz4-java) compression codec support  
-Feature - [CBOR](http://cbor.io/) binary json codec support (thanks to lefay)  
-Feature - [MsgPack](http://msgpack.org/) binary json codec support  
-Feature - [Fst](https://github.com/RuedigerMoeller/fast-serialization) serialization codec support  
-Feature - [Snappy](https://github.com/xerial/snappy-java) compression codec support  
-Feature - cluster slave nodes change monitoring  
-Feature - `Config.slaveFailedAttempts` and `Config.slaveReconnectionTimeout` config params added  
-Feature - `ClusterServersConfig.readFromSlaves` config param added  
-Improvement - async channel reconnection  
-Improvement - connection acquisition in async way  
-Improvement - cluster slot change/migration handling  
-Improvement - get cluster info from new cluster nodes not defined in initial config  
-__Deprecated__ - `refreshConnectionAfterFails` config param  
-Fixed - `RList.add(pos, element)` fixed  
-Fixed - Publish/Subscribe message decoding under heavy load  
-Fixed - cluster ASK response handling  
-Fixed - `RMap.putAll` fixed  
-Fixed - parsing cluster nodes info  
-Fixed - NPE during Publish/Subscribe event handling  
-Fixed - Redisson shutdown handling  
-Fixed - EOFException during RLock usage with SerializationCodec (thanks to Oleg Ternovoi)
-
-####17-Sep-2015 - version 2.1.3 released  
-Feature - Ability to define `Codec` for each object  
-Feature - `refreshConnectionAfterFails` setting added  
-Feature - [AWS Elasticache](https://aws.amazon.com/elasticache/) support via `Config.useElasticacheServers` method (thanks to Steve Ungerer)  
-Feature - `RScoredSortedSet` and `RLexSortedSet` added. Both uses native Redis Sorted Set commands. `RLexSortedSet`s stores only String objects and work with ZLEX-commands  
-Fixed - missed AUTH during channel reconnection  
-Fixed - resubscribe to subscribed topics during channel reconnection  
-
-####05-Sep-2015 - version 2.1.2 released  
-Fixed - possible NPE during channel reconnection  
-Fixed - executeAsync freezes in cluster mode  
-Fixed - use same node for SCAN/SSCAN/HSCAN during iteration  
-Fixed - possible race-condition during master change  
-Fixed - `BlockingQueue.peek` race-condition  
-Fixed - NPE with empty sentinel servers  
-Fixed - unable to read `clientName` config param in Master\Slave and Sentinel modes  
-Fixed - "Too many open files" error in cluster mode
-
-####15-Aug-2015 - version 2.1.1 released  
-Feature - all keys operations extracted to `RKeys` interface  
-Feature - `RKeys.getKeys`, `RKeys.getKeysByPattern` and `RKeys.randomKey`methods added  
-Feature - `RBlockingQueueAsync.drainToAsync` method added  
-Feature - Redis nodes info and ping operations via `Redisson.getNodesGroup` or `Redisson.getClusterNodesGroup` now available  
-Improvement - added sentinel nodes discovery  
-Fixed - command encoding errors handling  
-Fixed - cluster empty slot handling  
-Fixed - connection hangs when there are no slaves in sentinel mode  
-Fixed - activate master as slave when there are no more available slaves in sentinel mode  
-Fixed - skip disconnected sentinels during startup  
-Fixed - slave node discovery in sentinel mode which has been disconnected since start  
-__Deprecated__ - Redisson methods `deleteAsync`, `delete`, `deleteByPatternAsync`, `deleteByPattern`, `findKeysByPatternAsync`, `findKeysByPattern`. Use same methods with `RKeys` interface  
-
-####03-Aug-2015 - version 2.1.0 released  
-Feature - `RTopic` subscribtion/unsubscription status listener added  
-Feature - `RSet`: `removeRandom` and `removeRandomAsync` methods added  
-Improvement - `RList`: `retainAll`,`containsAll`, `indexOf`, `lastIndexOf` optimization  
-__Breaking api change__ - `findKeysByPattern` response interface changed to `Collection`  
-__Breaking api change__ - `RTopic` message listener interface changed  
-Fixed - NPE during cluster mode start  
-Fixed - timeout timer interval calculation  
-Fixed - `RBatch` NPE's with very big commands list  
-Fixed - `RBucket.set` with timeout  
-
-####26-Jul-2015 - version 2.0.0 released  
-Starting from 2.0.0 version Redisson has a new own async and lock-free Redis client under the hood. Thanks to the new architecture pipline (command batches) support has been implemented and a lot of code has gone.  
-
-Feature - new `RObject` methods: `move`, `moveAsync`, `migrate`, `migrateAsync`  
-Feature - new async interfaces: `RAsyncMap`, `RAtomicLongAsync`, `RBlockingQueueAsync`, `RCollectionAsync`, `RDequeAsync`, `RExpirableAsync`, `RHyperLogLogAsync`, `RListAsync`, `RObjectAsync`, `RQueueAsync`, `RScriptAsync`, `RSetAsync`, `RTopicAsync`  
-Feature - multiple commands batch (Redis pipelining) support via `Redisson.createBatch` method  
-Feature - new methods `flushall`, `deleteAsync`, `delete`, `deleteByPatternAsync`, `deleteByPattern`, `findKeysByPatternAsync`, `findKeysByPattern` added to `RedissonClient` interface  
-Improvement - closed channel detection speedup  
-
-####22-Jul-2015 - version 1.3.1 released  
-Fixed - requests state sync during shutdown  
-Fixed - netty-transport-native-epoll is now has a provided scope  
-Fixed - NPE during `BlockingQueue.poll` invocation  
-
-####04-Jul-2015 - version 1.3.0 released
-Feature - `RQueue.pollLastAndOfferFirstTo` method added  
-Feature - `RObject.rename`, `RObject.renameAsync`, `RObject.renamenx`, `RObject.renamenxAsync` methods added  
-Feature - `RList.getAsync`, `RList.addAsync`, `RList.addAllAsync` methods added  
-Feature - `RObject.deleteAsync` method added  
-Feature - unix sockets support via `Configuration.useLinuxNativeEpoll` setting  
-Feature - `Redisson.getTopicPattern` method added (thanks to alex-sherwin)  
-Improvement - `RLock` auto-unlock then client lock-owner is gone (thanks to AndrewKolpakov)  
-Improvement - lua scripts used instead of multi/exec commands to avoid connection errors during execution (thanks to AndrewKolpakov)  
-Improvement - `RObject.delete` method now returns `boolean` status  
-Improvement - propagate Command processing exceptions to ConnectionManager (thanks to marko-stankovic)  
-Improvement - KryoCodec classes registration ability added  
-Fixed - slave status handling in Sentinel mode  
-Fixed - String codec  
-Fixed - Cluster ASKING command support  
-Fixed - `RedissonBlockingQueue#drainTo` method (thanks to Sergey Poletaev)  
-Fixed - Cluster.STATE.HANDSHAKE enum added  
-Fixed - `RedissonClient.getScript` method added  
-Fixed - `BlockingQueue.poll` method  
-Fixed - Incorrect map key encoding makes hmget return no fields when string keys are used (thanks to sammiq)  
-
-####02-Apr-2015 - version 1.2.1 released
-Feature - all redis-script commands via 'RScript' object  
-Feature - implementation of `java.util.concurrent.BlockingQueue` (thanks to pdeschen)  
-Feature - buckets load by pattern (thanks to mathieucarbou)  
-Improvement - IPv6 support  
-Improvement - `isEmpty` checks for added collections  
-Fixed - KryoCodec keys decoding (thanks to mathieucarbou)  
-Fixed - `RMap.addAndGet()` data format  
-Fixed - timeout support in cluster, sentinel and single connections configurations  
-Fixed - ClassCastException in `RedissonCountDownLatch.trySetCount`  
-Fixed - `RMap.replace` concurrency issue (thanks to AndrewKolpakov)  
-Fixed - `RLock` subscription timeout units fixed (thanks to AndrewKolpakov)  
-Fixed - Re-throw async exceptions (thanks to AndrewKolpakov)  
-
-####09-Jan-2015 - version 1.2.0 released
-Feature - cluster mode support  
-Fixed - `RList` iterator race conditions  
-Fixed - `RDeque.addFirst` `RDeque.addLast` methods  
-Fixed - OSGi support
-
-####16-Dec-2014 - version 1.1.7 released
-Improvement - `RAtomicLong` optimization  
-Fixed - `RMap.fastRemove` and `RMap.getAll` methods  
-Fixed - `RTopic` listeners re-subscribing in sentinel mode  
-Fixed - `RSet.toArray` and `RSet.iterator` values order  
-Fixed - keys iteration in `RMap.getAll`  
-Fixed - `RSet` iteration  
-Fixed - `RAtomicLong` NPE  
-Fixed - infinity loop during master/slave connection acquiring  
-Fixed - `RedissonList.addAll` result  
-
-####18-Nov-2014 - version 1.1.6 released
-Feature - `RBucket.exists` and `RBucket.existsAsync` methods added  
-Feature - `RMap.addAndGet` method added  
-Feature -  database index via `database` and operation timeout via `timeout` config params added  
-Improvement - `RLock` optimization  
-__Breaking api change__ - Redisson now uses `RedissonClient` interface  
-Fixed - NPE in `CommandOutput`  
-Fixed - unsubscribing during `RTopic.removeListener`  
-Fixed - all object names encoding, no more quotes  
-Fixed - HashedWheelTimer shutdown  
-Fixed - `RLock` race conditions (thanks to jsotuyod and AndrewKolpakov)  
-Fixed - `RCountDownLatch` race conditions  
-
-####23-Jul-2014 - version 1.1.5 released
-Feature - operations auto-retry. `retryAttempts` and `retryInterval` params added for each connection type  
-Feature - `RMap.filterEntries`, `RMap.getAll`, `RMap.filterKeys`, `RMap.filterValues` methods added  
-Feature - `RMap.fastRemove`, `RMap.fastRemoveAsync`, `RMap.fastPut` & `RMap.fastPutAsync` methods added  
-Fixed - async operations timeout handling  
-Fixed - sorting algorithm used in `RSortedSet`.  
-
-####15-Jul-2014 - version 1.1.4 released
-Feature - new `RLock.lockInterruptibly`, `RLock.tryLock`, `RLock.lock` methods with TTL support  
-Fixed - pub/sub connections reattach then slave/master down  
-Fixed - turn off connection watchdog then slave/master down  
-Fixed - sentinel master switch  
-Fixed - slave down connection closing  
-
-####13-Jul-2014 - version 1.1.3 released
-Improvement - RedissonCountDownLatch optimization  
-Improvement - RedissonLock optimization  
-Fixed - RedissonLock thread-safety  
-Fixed - master/slave auth using Sentinel servers  
-Fixed - slave down handling using Sentinel servers  
-
-####03-Jul-2014 - version 1.1.2 released
-Improvement - RedissonSet.iterator implemented with sscan  
-Improvement - RedissonSortedSet.iterator optimization  
-Feature - `RSortedSet.removeAsync`, `RSortedSet.addAsync`, `RSet.removeAsync`, RSet.addAsync methods added  
-Feature - slave up/down detection in Sentinel servers connection mode  
-Feature - new-slave automatic discovery in Sentinel servers connection mode  
-
-####17-June-2014 - version 1.1.1 released
-Feature - sentinel servers support  
-Fixed - connection leak in `RTopic`  
-Fixed - setted password not used in single server connection  
-
-####07-June-2014 - version 1.1.0 released
-Feature - master/slave connection management  
-Feature - simple set/get object support via `org.redisson.core.RBucket`  
-Feature - hyperloglog support via `org.redisson.core.RHyperLogLog`  
-Feature - new methods `getAsync`, `putAsync` and `removeAsync` added to `org.redisson.core.RMap`  
-Feature - new method `publishAsync` added to `org.redisson.core.RTopic`  
-Feature - [Kryo](https://github.com/EsotericSoftware/kryo) codec added (thanks to mathieucarbou)  
-__Breaking api change__ - `org.redisson.Config` model changed  
-Fixed - score calucaltion algorithm used in `RSortedSet`.  
-Fixed - `RMap.put` & `RMap.remove` result consistency fixed.  
-Fixed - `RTopic.publish` now returns the number of clients that received the message  
-Fixed - reconnection handling (thanks to renzihui)  
-Improvement - `org.redisson.core.RTopic` now use lazy apporach for subscribe/unsubscribe  
-
-####04-May-2014 - version 1.0.4 released
-Feature - distributed implementation of `java.util.Deque`  
-Feature - some objects implements `org.redisson.core.RExpirable`  
-Fixed - JsonJacksonCodec lazy init  
-
-####26-Mar-2014 - version 1.0.3 released
-Fixed - RedissonAtomicLong state format  
-Fixed - Long serialization in JsonJacksonCodec  
-
-####05-Feb-2014 - version 1.0.2 released
-Feature - distributed implementation of `java.util.SortedSet`  
-Fixed - OSGi compability  
-
-####17-Jan-2014 - version 1.0.1 released
-Improvement - forceUnlock, isLocked, isHeldByCurrentThread and getHoldCount methods added to RLock  
-Feature - connection load balancer to use multiple Redis servers  
-Feature - published in maven central repo  
-
-####11-Jan-2014 - version 1.0.0 released
-First stable release.
-
-### Maven 
-
-Include the following to your dependency list:
-
+#### Maven 
+    <!-- JDK 1.8+ compatible -->
     <dependency>
        <groupId>org.redisson</groupId>
        <artifactId>redisson</artifactId>
-       <version>2.1.4</version>
+       <version>3.1.0</version>
+    </dependency>  
+
+    <!-- JDK 1.6+ compatible -->
+    <dependency>
+       <groupId>org.redisson</groupId>
+       <artifactId>redisson</artifactId>
+       <version>2.6.0</version>
     </dependency>
 
-### Gradle
 
-    compile 'org.redisson:redisson:2.1.4'
+#### Gradle
+    // JDK 1.8+ compatible
+    compile 'org.redisson:redisson:3.1.0'  
+
+    // JDK 1.6+ compatible
+    compile 'org.redisson:redisson:2.6.0'
+
+#### Java
+
+```java
+// 1. Create config object
+Config = ...
+
+// 2. Create Redisson instance
+RedissonClient redisson = Redisson.create(config);
+
+// 3. Get object you need
+RMap<MyKey, MyValue> map = redisson.getMap("myMap");
+
+RLock lock = redisson.getLock("myLock");
+
+RExecutorService executor = redisson.getExecutorService("myExecutorService");
+
+// over 30 different objects and services ...
+
+```
+
+Downloads
+===============================
+   
+[Redisson 3.1.0](https://repository.sonatype.org/service/local/artifact/maven/redirect?r=central-proxy&g=org.redisson&a=redisson&v=3.1.0&e=jar),
+[Redisson node 3.1.0](https://repository.sonatype.org/service/local/artifact/maven/redirect?r=central-proxy&g=org.redisson&a=redisson-all&v=3.1.0&e=jar)  
+
+[Redisson 2.6.0](https://repository.sonatype.org/service/local/artifact/maven/redirect?r=central-proxy&g=org.redisson&a=redisson&v=2.6.0&e=jar),
+[Redisson node 2.6.0](https://repository.sonatype.org/service/local/artifact/maven/redirect?r=central-proxy&g=org.redisson&a=redisson-all&v=2.6.0&e=jar)  
 
 ### Supported by
 
